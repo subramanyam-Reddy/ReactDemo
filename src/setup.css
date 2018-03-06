@@ -1,0 +1,317 @@
+.side-metrics {
+	display: block;
+}
+#side-metrics {
+	display:flex;
+	flex-direction: column;
+}
+.top-metrics {
+	display: none;
+}
+
+.agile-list li {
+	background: #FAFAFB;
+	border: 1px solid #e7eaec;
+	margin: 0 0 10px 0;
+	padding: 10px;
+	border-radius: 2px;
+}
+
+.agile-list li.warning-element {
+	border-left: 3px solid #f8ac59;
+}
+
+.agile-list li.success-element {
+	border-left: 3px solid #1ab394;
+}
+
+.agile-list li.danger-element {
+	border-left: 3px solid #ed5565;
+}
+
+.sidenav {
+	margin-top: 170px;
+	height: calc(100vh - 49px);
+	width: 0;
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	background-color: #ffffff;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 15px;
+}
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 30px;
+	margin-left: 50px;
+	color: #D3D3D3;
+}
+
+.select-country {
+	overflow: hidden;
+	text-align: center;
+	font-size: 15px;
+}
+
+.select-country:before, .select-country:after {
+	background-color: #A9A9A9;
+	content: "";
+	display: inline-block;
+	height: 1px;
+	position: relative;
+	vertical-align: middle;
+	width: 20%;
+}
+
+.select-country:before {
+	right: 0.5em;
+	margin-left: -50%;
+}
+
+.select-country:after {
+	left: 0.5em;
+	margin-right: -50%;
+}
+
+.maximize-revenue.metrics {
+	height: 50px;
+	margin-right: 5px;
+	padding: 15px;
+}
+
+.increase-revenue.metrics {
+	height: 50px;
+	margin-left: 5px;
+	padding: 15px;
+}
+
+button.btn.metrics-count {
+	margin: 15px 30px 20px 3px;
+}
+
+.col-md-2.nav-metrics-modify {
+	width: 13%;
+	font-size: 11px;
+}
+
+.tip {
+	position: relative;
+}
+
+.tool {
+	width: 360px;
+	height: 110px;
+	/*padding:20px;*/
+	border: 1px solid #ccc;
+	box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+	-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .3);
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	position: absolute;
+	top: 182px;
+	right: 215px;
+	display: none;
+	background-color: #1a0d00;
+}
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}
+
+.setup-header {
+	position: fixed;
+	z-index: 10;
+	margin-top: -60px;
+	padding-right: 35px;
+}
+
+.fixed-header {
+	margin-top: 60px;
+	margin-left: 35px;
+}
+
+.img-responsive {
+	width: 65%;
+	padding-top: 11px;
+	margin-left: 19px;
+}
+
+.metrics-span {
+	color: #F58833;
+}
+
+.ibox-title.metrics-heading {
+	background: #8F1E2A;
+	color: white;
+	margin-bottom: 5px;
+}
+
+.text-success.font-bold {
+	margin: 0px 0px;
+	font-size: 30px
+}
+
+.text-success {
+	font-size: 13px;
+	margin-top: 10px;
+}
+
+#map-container {
+	background-color: white;
+	padding-bottom: 8%;
+	/* padding-left: 115px; */
+}
+
+.text-success.font-bold.coverage {
+	margin: 0 0px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+/* .hover-table {
+	display: block;
+}
+.countryName
+{
+	font-size: 14px !important;
+}
+
+.warning-element
+{
+	height: 40vh;
+}
+
+#side-nav-table
+{
+	float: right;
+}
+.fa.fa-plus-circle
+{
+	font-size: 18px;
+	padding-top: 11px;
+}
+.content-block.white-bg.ibox
+{
+	margin: 0px;
+}
+.ibox-content.objective
+{
+	padding: 0px;
+}
+.increase-revenue.metrics
+{
+	margin-left: 0px;
+}
+.side-nav-constraints
+{
+	margin-right: 30px;
+}
+#side-nav-constraint
+{
+
+}
+#side-nav-checkbox
+{
+	padding-left: 5px;
+	 margin-top: 15px;
+}
+*/
+.row.label-fix {
+	margin-left: -10px;
+	margin-top: 20px;
+	font-size: 12px;
+}
+.row{
+	margin-right: 17px;
+	margin-left: 40px;
+}
+.map-display {
+	padding: 0px 40px 0px 0px;
+}
+
+.global-input {
+	width: 40px;
+	text-align: right;
+}
+
+.no-margins.metrics-size {
+	font-size: 18px;
+	color: black;
+	font-family: "Benton Sans";
+	font-weight: bold;
+	padding-left: 15px;
+}
+
+.metrics-heading {
+	font-size: 15px;
+	color: #7F8487;
+	font-family: "Goergia";
+	padding-left: 40px;
+}
+
+.heading-icon {
+	display: flex;
+}
+
+.key-metrics {
+	align-items: center;
+    height: 87px;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px 25px 0px 50px;
+    background-color: #8F1E2A;
+    color: white;
+}
+.nav-metrics {
+	padding-left: 70px;
+}
+
+.region-metrics {
+	margin:40px 0px 10px 75px;
+	background-color: white;
+	height: 14.7vh;
+	border: dashed;
+	display: flex;
+  justify-content: start;
+  width: 90%;
+}
+
+.ibox-content.budget-metrics {
+    padding-bottom: 0px;
+		height:14vh;
+  }
+.ibox-content-map {
+	height: 506px;
+}
+.budget-nav-metrics {
+	padding-bottom: 0px;
+    padding-left: 70px;
+}
+#navbar {
+	height: 50px !important;
+}
+#f-button :hover {
+	background-color: none !important;
+	color:none !important;
+}
+.fa-info-circle:before {
+    content: "\f05a";
+    color: #527AB7;
+}
