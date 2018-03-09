@@ -4,17 +4,87 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import LinkWithTooltip from './tooltip';
 import $ from 'jquery';
 
+var countryList = {};
+var regionData = [];
+var selectedCountries = [];
+var countryData = [ {
+  "id" : 1,
+  "country" : "ARGENTINA",
+  "baseNr" : "1850.41M",
+  "baseMaco" : "49.69M",
+  "baseVolume" : "0",
+  "baseMarketShare" : "0"
+}, {
+  "id" : 2,
+  "country" : "BELGIUM",
+  "baseNr" : "547.73M",
+  "baseMaco" : "84.89M",
+  "baseVolume" : " 1.88M",
+  "baseMarketShare" : "76"
+}, {
+  "id" : 3,
+  "country" : "CANADA",
+  "baseNr" : "1223.07M",
+  "baseMaco" : "163.42M",
+  "baseVolume" : " 5.04M",
+  "baseMarketShare" : "49"
+}, {
+  "id" : 4,
+  "country" : "MEXICO",
+  "baseNr" : "4162.40M",
+  "baseMaco" : "1112.31M",
+  "baseVolume" : " 0.12M",
+  "baseMarketShare" : "27"
+}, {
+  "id" : 5,
+  "country" : "US",
+  "baseNr" : "10131.96M",
+  "baseMaco" : "994.82M",
+  "baseVolume" : " 4.45M",
+  "baseMarketShare" : "43"
+} ]
+
 class home extends Component {
   constructor() {
     super()
     this.state = {
-      wasClicked: false
+      wasClicked: false,
+      region: {
+                  US: 'US',
+                  CA: 'CANADA',
+                  MX: 'MEXICO',
+                  AR: 'ARGENTINA',
+                  BE: 'BELGIUM'
+      },
+      regionData: countryData,
+      regionColor: {regions: [{
+      values: {
+      CA:'#F39C1F',
+      US:'#89231A',
+      MX:'#C33827',
+      AR:'#C33827',
+      BE:'#C3770A'
+      }
+    }]},
+    frameWorkName: 'Anne-stephen-framework'
     }
+    this.mapView = this.mapView.bind(this)
   }
+  componentDidMount() {
+      for (var i = 0; i < countryData.length; i++) {
+
+          countryList[countryData[i]['country']] = [
+              countryData[i]['country'],
+              countryData[i]['baseNr'],
+              countryData[i]['baseMaco'],
+              countryData[i]['baseMarketShare'],
+              countryData[i]['baseVolume']
+          ];
+      }
+  }
+
   regionClick(event, code) {
     $('.top-metrics').show();
-    var name=(code);
-    alert(name);
         $('#side-metrics').hide();
         $('.key-metrics').hide();
         if ($('#map-container').hasClass('col-sm-10')) {
@@ -29,16 +99,58 @@ class home extends Component {
 
         }
         document.getElementById("mySidenav").style.width = "33%";
+        var region = this.state.region[code];
+        if (region === "United States of America") {
+               region = 'us'
+           }
+           if (countryList[region] !== undefined && countryList[region] !== ' ' && countryList[region] !== null) {
+               if (regionData.indexOf(region) === -1) {
+                   regionData.push(region);
+                   console.log("coutrySelected" +countryList[region.toUpperCase()])
+                   selectedCountries.push(countryList[region.toUpperCase()])
+                   tableView();
+                   //$('.mapData')[0].value = regionData;
+               } else {
+                   var index = regionData.indexOf(region)
+                   regionData.splice(index, 1);
+                   selectedCountries.splice(index, 1);
+                   tableView();
+               }
+           } else {
+               alert("There is No Data for selected country")
+           }
 
+           function tableView() {
+                   var tr = ''
+                   selectedCountries
+                       .forEach(function(item, i) {
+                           tr += `<tr><td>${selectedCountries[i][0]}</td> <td>${selectedCountries[i][1]}</td><td>${selectedCountries[i][2]}</td><td>${selectedCountries[i][3]}</td><td>${selectedCountries[i][4]}</td></tr>`;
+                       })
+                   $("#mapdata-table")[0].innerHTML = tr;
+               }
     }
 
-    regionOver(e, code, region) {
-      console.log(region)
-         $('.tool').show();
+    regionOver(event, code) {
+        var region = this.state.region[code];
+        this.refs.regionName.innerText=region;
+
+        if (countryList[region] !== undefined && countryList[region] !== ' ' && countryList[region] !== null) {
+          $('.tool').show();
+            var hoverCountries = countryList[region]
+            var tr = ''
+            tr += `<tr><td>${hoverCountries[1]}</td> <td>${hoverCountries[2]}</td><td>${hoverCountries[3]}</td><td>${hoverCountries[4]}</td></tr>`;
+            $("#hover-tbody")[0].innerHTML = tr;
+        } else {
+          $('.tool').hide();
+        }
     }
-      regionOut(e, code, region) {
+      regionOut(e, code) {
            $('.tool').hide();
     }
+      regionTip(e, tip, code) {
+         e.preventDefault();
+    }
+
     closeNav() {
       $('.top-metrics').hide();
     	$('#side-metrics').show();
@@ -60,8 +172,40 @@ class home extends Component {
         document.getElementById("mySidenav").style.width = "0";
     }
     routeChange() {
-      this.props.history.push('/budgetAllocation')
+      if(document.getElementById("manual").checked === true) {
+        this.props.history.push('/budgetAllocation')
+      }
+      else {
+        this.props.history.push('/error')
+      }
     }
+    mapView() {
+      $('#map-container').remove()
+    }
+    frameworkChange() {
+      console.log(this)
+
+      if(this.refs.framework.value === 'Zone-level-framework') {
+          this.setState({
+            regionColor: {regions:[{
+                values: {
+                  CA:'blue',
+                  US:'#89231A',
+                  MX:'#C33827',
+                  AR:'#C33827',
+                  BE:'#C3770A'
+                }
+             }]
+          },
+          frameWorkName: 'Zone-level-framework'
+       })
+       // {this.mapView()}
+     }
+     else{
+        this.setState({frameWorkName: 'Anne-stephen-framework'})
+        // this.mapView()
+      }
+  }
   render() {
     const tooltip = (
     <Tooltip id="tooltip">
@@ -181,32 +325,49 @@ class home extends Component {
                                 </div>
                           </div>
                           <div className="ibox-content-map">
-    											<div className="col-sm-10" id='map-container'>
+    											<div className="col-sm-10" id='map-container' style={{height: 445}}>
                           <div className="framework">
       											<h4>Choose Framework:</h4>
-      											<select id="framework-name">
+      											<select value={this.state.frameWorkName} onChange={()=>this.frameworkChange()} ref="framework" id="framework-name">
       												<option value="Anne-stephen-framework">Anne-stephen-framework</option>
       												<option value="Zone-level-framework" >Zone-level-framework</option>
       											</select>
                             </div>
-                              <div style={{width: '100%', height: 300,marginTop: 12}}>
+                            <div id="world-map">
+                              <div id="map-container" style={{width: '100%', height: 350,marginTop: 12}}>
                                   <VectorMap map={'world_mill'}
-                                   backgroundColor="#D3D3D3"
+                                   backgroundColor="#fff"
                                    ref="map"
                                    containerStyle={{
                                        width: '100%',
                                        height: '100%'
                                    }}
+                                   series = {this.state.regionColor}
+                                 regionsSelectable= {true}
+                                 regionStyle={{
+                                   initial: {
+                                      fill: '#D3D3D3'
+                                      },
+                                      hover: {
+                                      fill: '#C9DFAF'
+                                      },
+                                      selected: {
+                                      fill: '#CD5C5C'
+                                      }
+                                 }}
+
+                                 onRegionTipShow = {(event, tip, code)=>this.regionTip(event, tip, code)}
                                  containerClassName="map"
-                                 onRegionClick = {()=>this.regionClick()}
-                                 onRegionOver = {()=>this.regionOver()}
-                                 onRegionOut = {()=>this.regionOut()}
+                                 onRegionClick = {(event, code)=>this.regionClick(event, code)}
+                                 onRegionOver = {(event, code)=>this.regionOver(event, code)}
+                                 onRegionOut = {(event, code)=>this.regionOut(event, code)}
                                             />
                                 </div>
+                              </div>
                                 <div className="ibox float-e-margins tool" style={{zIndex: 1000}}>
             											<div className="ibox-title">
             												<h4 className="countryName">
-            												      <span>Canada</span>
+            												      <span ref="regionName"></span>
             												</h4>
             											</div>
             											<div className="ibox-content " style={{paddingLeft: 0 }}>
@@ -228,7 +389,7 @@ class home extends Component {
                           </div>
                           </div>
                                 <div id="mySidenav" className="sidenav">
-          											<a href="javascript:void(0)" className="closebtn"	onClick={()=>this.closeNav()}>&times;</a>
+          											<div className="closebtn"	onClick={()=>this.closeNav()}>&times;</div>
           											<div>
           												<div className="select-country">Select Countries</div>
           												<ul className="sortable-list connectList agile-list" id="todo">
@@ -250,7 +411,7 @@ class home extends Component {
           														<div id="side-nav-table">
           															<span><i className="fa fa-plus-circle"
           																aria-hidden="true"
-          																style={{marginTop: 150,position: 'absolute', right: 0}}></i></span>
+          																style={{marginTop: 0,position: 'absolute', right: 0}}></i></span>
           														</div>
           													</li>
           												</ul>
@@ -312,7 +473,7 @@ class home extends Component {
                                   </ul>
                                 </div>
                                 <div id="side-nav-checkbox" style={{textAlign: 'center'}}>
-                                  <input type="checkbox" value="true"/><span>Manual Budget Allocation
+                                  <input type="checkbox" value="true" id="manual"/><span>Manual Budget Allocation
                                   <LinkWithTooltip tooltip="Note:Media & Trade optimization will run with planned global budget." href="#" id="tooltip-1">
                                           <i className="fa fa-info-circle" style={{paddingLeft:10}} aria-hidden="true"></i>
                                   </LinkWithTooltip></span>

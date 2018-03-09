@@ -37,6 +37,9 @@ class budgetAllocation extends Component {
         document.getElementById(`c_${country[1]}`).style.borderColor="initial";
       }
   }
+  navigate() {
+  this.props.history.push('/error')
+}
   render() {
 
     let tbody = this.state.budget.map((budget, index) => {
@@ -138,7 +141,7 @@ class budgetAllocation extends Component {
             </table>
           </div>
           <div>
-              <input type="submit" value="Optimize" className = "btn btn-primary pull-right"/>
+              <input type="submit" value="Optimize" className = "btn btn-primary pull-right" onClick={()=> this.navigate()}/>
           </div>
         </div>
     );

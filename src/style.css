@@ -3085,7 +3085,7 @@ a.forum-item-title:hover {
 }
 .jvectormap-zoomout {
     background-color: #a7a9a6;
-    top: 30px;
+    top: 35px;
 }
 .jvectormap-goback {
     bottom: 10px;
@@ -3111,7 +3111,7 @@ a.forum-item-title:hover {
 .jqvmap-zoomout,
 .jvectormap-zoomout {
     background-color: #a7a9a6 !important;
-    top: 30px;
+    top: 35px;
 }
 .jvectormap-spinner {
     position: absolute;
@@ -3728,6 +3728,7 @@ ol.unstyled {
     padding: 10px 20px;
     position: fixed;
     right: 0;
+    z-index: 1;
 }
 .footer.fixed_full {
     position: fixed;
